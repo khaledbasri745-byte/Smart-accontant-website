@@ -52,17 +52,308 @@
             pointer-events: none;
         }
 
+        /* المجمع العلوي الثابت مع شريطين منفصلين */
+        .top-sticky-wrapper {
+            position: sticky;
+            top: 0;
+            z-index: 1020;
+            width: 100%;
+            background: rgba(3, 7, 18, 0.98);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            transform: translateZ(0);
+            -webkit-transform: translateZ(0);
+            border-bottom: 1px solid rgba(59, 130, 246, 0.25);
+        }
+
+        /* 1. التولبار العلوي الأول: شريط العنوان والبحث وزر الطي */
+        .brand-title-bar {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 0.6rem 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid rgba(59, 130, 246, 0.15);
+            position: relative;
+            min-height: 52px;
+        }
+
+        .quick-nav-brand-normal {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #ffffff;
+            font-weight: 800;
+            font-size: 1.1rem;
+            flex-shrink: 0;
+            visibility: visible;
+            opacity: 1;
+            transition: opacity 0.2s ease;
+        }
+
+        .quick-nav-brand-normal.hidden {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+            position: absolute;
+        }
+
+        .quick-nav-brand-normal i {
+            color: var(--secondary-color);
+            font-size: 1.3rem;
+        }
+
+        /* أقصى اليسار: تجميع زر الطي، زر البحث */
+        .header-left-actions {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        .search-action-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+            flex-shrink: 0;
+        }
+
+        .floating-search-btn {
+            display: inline-flex;
+            background: rgba(30, 41, 59, 0.9);
+            border: 1px solid rgba(59, 130, 246, 0.4);
+            color: var(--secondary-color);
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            visibility: visible;
+            opacity: 1;
+            transition: opacity 0.2s ease;
+        }
+
+        .floating-search-btn.hidden {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+        .floating-search-btn:hover {
+            background: var(--secondary-color);
+            color: white;
+        }
+
+        /* حقل البحث الذي يحل مكان كامل شريط العنوان بدون انيميشن */
+        .inline-search-box {
+            display: none;
+            align-items: center;
+            position: absolute;
+            left: 1rem;
+            right: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 10;
+        }
+
+        .inline-search-box.active {
+            display: flex;
+        }
+
+        .inline-search-box input {
+            width: 100%;
+            background: rgba(30, 41, 59, 0.95);
+            border: 1px solid rgba(59, 130, 246, 0.6);
+            border-radius: 50px;
+            padding: 0.45rem 2.5rem 0.45rem 2.5rem;
+            color: white;
+            font-family: 'Cairo', sans-serif;
+            font-size: 0.95rem;
+            outline: none;
+        }
+
+        .inline-search-box i.search-icon-inside {
+            position: absolute;
+            right: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+            pointer-events: none;
+            font-size: 0.9rem;
+        }
+
+        .inline-search-box i.close-search-inside {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+
+        .inline-search-box i.close-search-inside:hover {
+            color: #f87171;
+        }
+
+        /* زر إظهار/إخفاء شريط الاختصارات */
+        .toggle-toolbar-btn {
+            background: rgba(30, 41, 59, 0.8);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            color: var(--text-muted);
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            visibility: visible;
+            opacity: 1;
+            transition: opacity 0.2s ease;
+        }
+
+        .toggle-toolbar-btn.hidden {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+        .toggle-toolbar-btn:hover {
+            background: var(--secondary-color);
+            color: white;
+        }
+
+        /* 2. التولبار السفلي الثاني: شريط الاختصارات فقط بدون فراغات جانبية */
+        .quick-nav-bar {
+            background: rgba(3, 7, 18, 0.95);
+            padding: 0.6rem 0;
+            max-width: 1600px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            max-height: 100px;
+            overflow: hidden;
+            transition: max-height 0.3s ease, padding 0.3s ease, opacity 0.3s ease;
+            opacity: 1;
+        }
+
+        .quick-nav-bar.collapsed {
+            max-height: 0;
+            padding-top: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .quick-nav-container {
+            display: flex;
+            gap: 0.6rem;
+            overflow-x: auto;
+            white-space: nowrap;
+            scrollbar-width: thin;
+            scrollbar-color: var(--secondary-color) rgba(15, 23, 42, 0.5);
+            width: 100%;
+            align-items: center;
+            padding: 0.2rem 1rem;
+        }
+
+        .quick-nav-container::-webkit-scrollbar {
+            height: 5px;
+        }
+
+        .quick-nav-container::-webkit-scrollbar-track {
+            background: rgba(15, 23, 42, 0.5);
+        }
+
+        .quick-nav-container::-webkit-scrollbar-thumb {
+            background: var(--secondary-color);
+            border-radius: 3px;
+        }
+
+        .quick-nav-item {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            background: rgba(30, 41, 59, 0.7);
+            color: var(--text-muted);
+            padding: 0.4rem 1rem;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-decoration: none;
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            transition: all 0.2s ease;
+            flex-shrink: 0;
+        }
+
+        .quick-nav-item:hover {
+            background: var(--secondary-color);
+            color: white;
+            border-color: var(--secondary-color);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+        }
+
+        /* القائمة المندمجة لنتائج البحث */
+        .search-results-dropdown {
+            position: absolute;
+            top: calc(100% + 10px);
+            left: 0;
+            right: auto;
+            width: 100%;
+            background: rgba(15, 23, 42, 0.98);
+            border: 1px solid rgba(59, 130, 246, 0.4);
+            border-radius: 16px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.8);
+            max-height: 300px;
+            overflow-y: auto;
+            z-index: 1100;
+            display: none;
+        }
+
+        .search-result-item {
+            padding: 0.8rem 1.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            color: var(--text-color);
+            text-decoration: none;
+            border-bottom: 1px solid rgba(59, 130, 246, 0.15);
+            font-size: 0.9rem;
+            transition: background 0.2s;
+        }
+
+        .search-result-item:last-child {
+            border-bottom: none;
+        }
+
+        .search-result-item:hover {
+            background: rgba(59, 130, 246, 0.15);
+            color: #ffffff;
+        }
+
+        .search-result-item span {
+            font-size: 0.75rem;
+            color: var(--secondary-color);
+            background: rgba(59, 130, 246, 0.1);
+            padding: 0.2rem 0.6rem;
+            border-radius: 20px;
+        }
+
         header {
             background: linear-gradient(135deg, #090d16 0%, #111827 50%, #1e3a8a 100%);
             color: white;
             text-align: center;
-            padding: 7rem 2rem 9rem;
+            padding: 6rem 2rem 8rem;
             position: relative;
             overflow: hidden;
             border-bottom: 1px solid var(--card-border);
         }
 
-        /* تأثير اللمعان المتحرك في الفاصل السفلي للهيدر مع تجنب اللوغو والتحكم بمساره */
         header::after {
             content: '';
             position: absolute;
@@ -103,11 +394,75 @@
             z-index: 10;
         }
 
+        .ad-slideshow-container {
+            margin-bottom: 3.5rem;
+            display: flex;
+            justify-content: center;
+        }
+
+        .ad-card-view {
+            background: var(--card-bg);
+            border: 2px solid rgba(59, 130, 246, 0.4);
+            border-radius: 24px;
+            padding: 1.5rem;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+            width: 100%;
+            max-width: 850px;
+            position: relative;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        .ad-slide {
+            display: none;
+            animation: fadeEffect 0.8s ease-in-out;
+        }
+
+        .ad-slide.active-slide {
+            display: block;
+        }
+
+        .ad-slide img {
+            width: 100%;
+            height: 480px;
+            object-fit: contain;
+            border-radius: 16px;
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            background-color: #0b0f19;
+        }
+
+        @keyframes fadeEffect {
+            from { opacity: 0.4; transform: scale(0.98); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .ad-dots {
+            text-align: center;
+            margin-top: 1rem;
+        }
+
+        .dot {
+            height: 10px;
+            width: 10px;
+            margin: 0 4px;
+            background-color: rgba(148, 163, 184, 0.4);
+            border-radius: 50%;
+            display: inline-block;
+            transition: background-color 0.3s ease, width 0.3s ease;
+            cursor: pointer;
+        }
+
+        .dot.active-dot {
+            width: 25px;
+            border-radius: 6px;
+            background-color: var(--secondary-color);
+        }
+
         .logo-section {
             text-align: center;
             margin-bottom: 4rem;
             position: relative;
-            z-index: 2; /* ضمان بقاء اللوغو فوق أي طبقات خلفية تفاعلية */
+            z-index: 2;
         }
 
         .logo-container {
@@ -176,6 +531,7 @@
             margin-left: auto;
             margin-right: auto;
             position: relative;
+            scroll-margin-top: 130px;
         }
 
         section.no-border-card {
@@ -223,6 +579,8 @@
             font-size: 1.25rem;
             font-weight: 700;
             margin-bottom: 1rem;
+            margin-top: 1.5rem;
+            scroll-margin-top: 130px;
         }
 
         p, li {
@@ -351,7 +709,6 @@
             color: #ffffff;
         }
 
-        /* نافذة رسالة قيد التطوير */
         .dev-modal-overlay {
             position: fixed;
             inset: 0;
@@ -433,9 +790,66 @@
 
     <div class="bg-glow"></div>
 
+    <!-- مجمع الأشرطة العلوية الثابتة مكونة من شريطين منفصلين -->
+    <div class="top-sticky-wrapper" id="topStickyWrapper">
+        
+        <!-- التولبار الأول: شريط العنوان والبحث وزر الطي -->
+        <div class="brand-title-bar">
+            <!-- أقصى اليمين: اسم المنصة العادي -->
+            <div class="quick-nav-brand-normal" id="quickNavBrandNormal">
+                <i class="fa-solid fa-chart-pie"></i>
+                <span>Smart Accountant</span>
+            </div>
+
+            <!-- حقل البحث الذي يحل مكان كامل شريط العنوان بدون انيميشن -->
+            <div class="inline-search-box" id="inlineSearchBox">
+                <input type="text" id="inlineSearchInput" placeholder="ابحث هنا..." oninput="filterInlineShortcuts()">
+                <i class="fa-solid fa-search search-icon-inside"></i>
+                <i class="fa-solid fa-xmark close-search-inside" onclick="toggleInlineSearch()" title="إغلاق البحث"></i>
+                <div class="search-results-dropdown" id="searchResultsDropdown"></div>
+            </div>
+
+            <!-- أقصى اليسار: تجميع زر الطي، وزر البحث -->
+            <div class="header-left-actions">
+                <!-- زر إظهار/إخفاء شريط الاختصارات -->
+                <button class="toggle-toolbar-btn" id="toggleToolbarBtn" onclick="toggleToolbarCollapse()" title="إظهار/إخفاء الاختصارات">
+                    <i class="fa-solid fa-chevron-up" id="toggleToolbarIcon"></i>
+                </button>
+
+                <div class="search-action-wrapper" id="searchActionWrapper">
+                    <button class="floating-search-btn" id="floatingSearchBtn" onclick="toggleInlineSearch()" title="البحث السريع">
+                        <i class="fa-solid fa-search"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+                <!-- التولبار الثاني: شريط الاختصارات فقط بدون فراغات جانبية -->
+        <nav class="quick-nav-bar" id="quickNavBar">
+            <div class="quick-nav-container" id="quickNavContainer">
+                <a href="#id-card" class="quick-nav-item" data-keywords="بطاقة تعريف مشروع معلومات عامة"><i class="fa-solid fa-id-card"></i> البطاقة التعريفية</a>
+                <a href="#intro" class="quick-nav-item" data-keywords="تعريف بالمشروع مقدمة عامة"><i class="fa-solid fa-rocket"></i> التعريف بالمشروع</a>
+                <a href="#idea" class="quick-nav-item" data-keywords="فكرة المشروع الغاية"><i class="fa-solid fa-lightbulb"></i> الفكرة</a>
+                <a href="#current-features" class="quick-nav-item" data-keywords="الوظائف الحالية المتاحة عمليات فواتير تحليل ذكاء اصطناعي"><i class="fa-solid fa-check-circle"></i> الوظائف الحالية</a>
+                <a href="#upcoming" class="quick-nav-item" data-keywords="قيد التطوير قيود يومية دليل حسابات عملاء موردين مبيعات مخزون ميزانيات بنوك تقارير"><i class="fa-solid fa-code-branch"></i> قيد التطوير</a>
+                <a href="#future-services" class="quick-nav-item" data-keywords="خدمات مستقبلية مساعد صوتي ocr سحابي ضرائب pos"><i class="fa-solid fa-star"></i> خدمات مستقبلية</a>
+                <a href="#targets" class="quick-nav-item" data-keywords="المؤسسات المستهدفة تجار شركات ناشئة محاسبين"><i class="fa-solid fa-building"></i> المؤسسات المستهدفة</a>
+                <a href="#education" class="quick-nav-item" data-keywords="الجانب التعليمي طلبة تمارين مفاهيم"><i class="fa-solid fa-graduation-cap"></i> الجانب التعليمي</a>
+                <a href="#expansion" class="quick-nav-item" data-keywords="قابلية التوسع المستقبل"><i class="fa-solid fa-expand"></i> قابلية التوسع</a>
+                <a href="#startup" class="quick-nav-item" data-keywords="مؤسسة ناشئة فنتك مالية رقمية الجزائر"><i class="fa-solid fa-seedling"></i> مؤسسة ناشئة</a>
+                <a href="#university" class="quick-nav-item" data-keywords="جامعة النعامة صالحي أحمد علوم مالية ومحاسبة"><i class="fa-solid fa-university"></i> جامعة النعامة</a>
+                <a href="#support" class="quick-nav-item" data-keywords="طلب مرافقة ودعم إدارة الجامعة"><i class="fa-solid fa-handshake-angle"></i> طلب مرافقة</a>
+                <a href="#vision" class="quick-nav-item" data-keywords="الرؤية والرسالة الهدف النهائي"><i class="fa-solid fa-eye"></i> الرؤية والرسالة</a>
+                <a href="#profile-card" class="quick-nav-item" data-keywords="صاحب المشروع المطور الشعار"><i class="fa-solid fa-address-card"></i> صاحب المشروع</a>
+                <a href="#contact" class="quick-nav-item" data-keywords="التواصل واتساب تيليجرام بريد إلكتروني"><i class="fa-solid fa-headset"></i> التواصل</a>
+            </div>
+        </nav>
+
+    </div>
+
     <header>
         <h1>Smart Accountant</h1>
-        <p>منصة المحاسب الذكي لإدارة المحاسبة والعمليات المالية بتقنيات الجيل القادم</p>
+        <p>منصة المحاسب الذكي لإدارة المحاسبة والعمليات المالية</p>
     </header>
 
     <div class="main-wrapper">
@@ -453,7 +867,22 @@
             </div>
         </div>
 
-        <section class="no-border-card">
+        <div class="ad-slideshow-container">
+            <div class="ad-card-view">
+                <div class="ad-slide active-slide">
+                    <img src="https://lh3.googleusercontent.com/d/1rwD2qnB-dOOJTQycgTr7WlV3Xm9t3aUF=s800" alt="الإعلان الأول" onerror="this.src='https://via.placeholder.com/850x450?text=Smart+Accountant+Ad+1'">
+                </div>
+                <div class="ad-slide">
+                    <img src="https://lh3.googleusercontent.com/d/1s-Pf_cs5vnXaqSIjLm26sud2wvUvgnho=s800" alt="الإعلان الثاني" onerror="this.src='https://via.placeholder.com/850x450?text=Smart+Accountant+Ad+2'">
+                </div>
+                <div class="ad-dots">
+                    <span class="dot active-dot" onclick="currentSlide(0)"></span>
+                    <span class="dot" onclick="currentSlide(1)"></span>
+                </div>
+            </div>
+        </div>
+
+        <section id="id-card" class="no-border-card">
             <h2><i class="fa-solid fa-id-card"></i> بطاقة التعريف بالمشروع</h2>
             <table>
                 <tr>
@@ -487,411 +916,219 @@
             </table>
         </section>
 
-        <section>
+        <section id="intro">
             <h2><i class="fa-solid fa-rocket"></i> 1. التعريف بالمشروع</h2>
-            <p>Smart Accountant هو مشروع رقمي محاسبي يهدف إلى تطوير منصة ذكية ومتكاملة تساعد التجار، أصحاب المؤسسات، الشركات الناشئة، المهنيين، أصحاب المشاريع، المحاسبين والطلبة على إدارة مختلف العمليات المالية والمحاسبية بطريقة بسيطة ومنظمة وذكية.</p>
-            <p>يجمع التطبيق بين المحاسبة التقليدية، الإدارة المالية، الفوترة، المبيعات والمشتريات، إدارة العملاء والموردين، الميزانيات، التقارير المالية والذكاء الاصطناعي في منصة واحدة، مع تصميم يراعي سهولة الاستخدام حتى بالنسبة للمستخدم الذي ليست لديه خبرة محاسبية متقدمة.</p>
-            <p>ويهدف المشروع إلى الانتقال بالمستخدم من التسجيل اليدوي والمتفرق للعمليات المالية إلى نظام رقمي يساعده على تسجيل العمليات، تنظيمها، تحليلها، واستخراج المعلومات والنتائج المالية بصورة أسرع وأكثر وضوحًا.</p>
+            <p>Smart Accountant هو مشروع رقمي محاسبي يهدف إلى تطوير منصة ذكية تساعد التجار، أصحاب المؤسسات، الشركات الناشئة، المهنيين، أصحاب المشاريع، المحاسبين والطلبة على إدارة العمليات المالية بطريقة بسيطة ومنظمة وذكية.</p>
+            <p>يتمثل الإصدار الحالي من المشروع في توفير مجموعة من الوظائف الأساسية تشمل إدراج العمليات المالية، الفواتير المرتبطة بالعمليات المسجلة، التحليل المالي، وSmart Accountant AI، وهو مساعد ذكاء اصطناعي محاسبي متخصص ومكتمل في الإصدار الحالي.</p>
+            <p>أما باقي الأنظمة والوظائف المحاسبية المتقدمة، فهي تمثل مراحل مستقبلية للمشروع وقيد التطوير، بهدف الوصول تدريجيًا إلى منصة محاسبية متكاملة.</p>
         </section>
 
-        <section>
+        <section id="idea">
             <h2><i class="fa-solid fa-lightbulb"></i> 2. فكرة Smart Accountant</h2>
-            <p>تقوم فكرة Smart Accountant على إنشاء مساعد محاسبي رقمي يستطيع المستخدم من خلاله إدارة النشاط المالي للمؤسسة من مكان واحد.</p>
-            <p>فعلى سبيل المثال، يستطيع المستخدم تسجيل:</p>
-            <ul>
-                <li>دخل أو إيراد.</li>
-                <li>نفقة أو مصروف.</li>
-                <li>عملية بيع.</li>
-                <li>عملية شراء.</li>
-                <li>دين على عميل.</li>
-                <li>دين لصالح مورد.</li>
-                <li>فاتورة بيع.</li>
-                <li>فاتورة شراء.</li>
-                <li>تسديد أو تحصيل.</li>
-                <li>تحويل مالي.</li>
-                <li>قيد يومية.</li>
-                <li>حركة في الصندوق.</li>
-                <li>حركة في البنك.</li>
-                <li>عملية مرتبطة بالمخزون.</li>
-                <li>ميزانية أو هدف مالي.</li>
-            </ul>
-            <p style="margin-top: 1rem;">ثم يقوم النظام بتنظيم هذه المعلومات وربطها بالحسابات والتقارير والعمليات المرتبطة بها.</p>
+            <p>تقوم فكرة Smart Accountant على توفير بيئة رقمية تساعد المستخدم على تسجيل عملياته المالية ومتابعتها وفهم وضعه المالي من خلال واجهة بسيطة.</p>
+            <p>يسمح الإصدار الحالي للمستخدم بتسجيل العمليات المالية، وإنشاء الفواتير الخاصة بالعمليات المسجلة، ومتابعة المؤشرات المالية الأساسية، بالإضافة إلى الاستفادة من Smart Accountant AI للإجابة عن الاستفسارات المحاسبية والتفاعل مع المستخدم في المجال المحاسبي.</p>
+            <p>ويتم تطوير باقي مكونات المنصة تدريجيًا تشمل مستقبلًا مختلف الجوانب المحاسبية والإدارية.</p>
         </section>
 
-        <section>
-            <h2><i class="fa-solid fa-wallet"></i> 3. إدارة الدخل والنفقات</h2>
-            <p>يوفر التطبيق نظامًا لتسجيل ومتابعة الإيرادات والمصروفات، مع إمكانية تصنيفها حسب نوع العملية والتاريخ والحساب والمشروع وغيرها.</p>
-            <p>يمكن للمستخدم معرفة:</p>
+        <section id="current-features">
+            <h2><i class="fa-solid fa-check-circle"></i> 3. الوظائف المتوفرة حاليًا</h2>
+            <p>يتضمن الإصدار الحالي من Smart Accountant الوظائف الأساسية التالية:</p>
+
+            <h3 id="sub-operations">3.1 إدراج العمليات المالية</h3>
+            <p>يمكن للمستخدم تسجيل مختلف عملياته المالية داخل التطبيق، بما يسمح له بتنظيم بياناته المالية والرجوع إليها ومتابعتها.</p>
+
+            <h3 id="sub-invoices">3.2 الفواتير الخاصة بالعمليات</h3>
+            <p>يوفر التطبيق إمكانية إنشاء وعرض الفواتير المرتبطة بالعمليات المالية المسجلة.</p>
+            <p>ويُقصد بذلك الفواتير الخاصة بالعمليات الموجودة داخل التطبيق، بينما يُعد تطوير نظام فوترة شامل ومستقل للمبيعات والمشتريات والعملاء والموردين من الوظائف المستقبلية.</p>
+
+            <h3 id="sub-analysis">3.3 التحليل المالي</h3>
+            <p>يوفر التطبيق تحليلًا للبيانات المالية المسجلة، ومن أبرز المؤشرات الحالية:</p>
             <ul>
-                <li>إجمالي الدخل.</li>
-                <li>إجمالي النفقات.</li>
-                <li>صافي النتيجة.</li>
-                <li>أكثر أنواع المصاريف استهلاكًا للأموال.</li>
-                <li>تطور الإيرادات والمصاريف.</li>
-                <li>مقارنة الفترات المالية.</li>
-                <li>الحركات المالية اليومية والشهرية والسنوية.</li>
+                <li>نسبة الدخل.</li>
+                <li>نسبة النفقات.</li>
+                <li>متابعة العمليات المالية.</li>
+                <li>عرض المؤشرات المتعلقة بالبيانات المسجلة.</li>
             </ul>
-            <p style="margin-top: 1rem;">كما يمكن للنظام الاستفادة من هذه البيانات لإظهار تحليلات تساعد المستخدم على فهم وضعه المالي واتخاذ قرارات أفضل.</p>
+            <p style="margin-top: 1rem;">ويهدف هذا الجزء إلى مساعدة المستخدم على فهم وضعه المالي بصورة أوضح.</p>
+
+            <h3 id="sub-ai">3.4 Smart Accountant AI</h3>
+            <p>Smart Accountant AI هو مساعد ذكاء اصطناعي متخصص في المجال المحاسبي، وهو متوفر ومكتمل في الإصدار الحالي ولا يُعد وظيفة قيد التطوير.</p>
+            <p>تم تصميمه للتفاعل مع المستخدم والإجابة عن الأسئلة المتعلقة بالمحاسبة، مثل شرح العمليات والمعالجات المحاسبية والقيود والمفاهيم المحاسبية.</p>
+            <p>ومن أمثلة استخدامه:</p>
+            <p style="text-align: center; margin: 1rem 0; font-weight: bold; color: #93c5fd;">«لدي مبلغ 100000 دج، اشتريت بضاعة بـ80000 دج والباقي نقدًا، كيف أسجل العملية؟»</p>
+            <p>يمكن للمساعد تحليل السؤال وشرح المعالجة المحاسبية المناسبة وفق المعطيات المقدمة.</p>
+            <p>كما يستطيع المساعدة في:</p>
+            <ul>
+                <li>الإجابة عن الأسئلة المحاسبية.</li>
+                <li>شرح المفاهيم والمصطلحات المحاسبية.</li>
+                <li>شرح القيود اليومية.</li>
+                <li>تحليل العمليات المحاسبية.</li>
+                <li>اقتراح المعالجة المحاسبية المناسبة.</li>
+                <li>مساعدة الطلبة على فهم المحاسبة.</li>
+                <li>الإجابة عن الحالات والسيناريوهات المحاسبية المختلفة.</li>
+            </ul>
         </section>
 
-        <section>
-            <h2><i class="fa-solid fa-balance-scale"></i> 4. القيود اليومية والمحاسبة المزدوجة</h2>
-            <p>من أهم مكونات Smart Accountant وجود نظام للقيود اليومية يسمح بتسجيل العمليات وفق المنطق المحاسبي.</p>
-            <p>يمكن إنشاء القيود يدويًا، مع إمكانية تطوير النظام مستقبلاً لإنشاء القيود المحاسبية تلقائيًا انطلاقًا من العمليات المسجلة داخل التطبيق.</p>
-            <p>فعلى سبيل المثال، عند تسجيل شراء أصل أو بضاعة نقدًا، يمكن للنظام مساعدته في تحديد الحسابات المدينة والدائنة المناسبة وفق طبيعة العملية.</p>
-            <p>كما يمكن للنظام التحقق من توازن القيد بحيث يكون:</p>
+        <section id="upcoming">
+            <h2><i class="fa-solid fa-code-branch"></i> 4. الوظائف قيد التطوير</h2>
+            <p>إلى جانب الوظائف المتوفرة حاليًا، يتضمن المشروع خارطة طريق لتطوير مجموعة واسعة من الأنظمة المحاسبية والإدارية.</p>
+            <p>ومن أبرز الوظائف قيد التطوير:</p>
+
+            <h3 id="sub-double-entry">4.1 القيود اليومية والمحاسبة المزدوجة</h3>
+            <p>تطوير نظام متكامل للقيود اليومية والمحاسبة المزدوجة، مع إمكانية ربط العمليات المسجلة بالقيود المحاسبية والتحقق من توازنها وفق قاعدة:</p>
             <p style="text-align: center; margin: 1rem 0; font-weight: bold; color: #93c5fd;">مجموع المدين = مجموع الدائن</p>
-            <p>مع إمكانية ربط القيد بالمستند أو العملية الأصلية، مما يسهل عملية المراجعة والتتبع.</p>
-        </section>
 
-        <section>
-            <h2><i class="fa-solid fa-sitemap"></i> 5. دليل الحسابات</h2>
-            <p>يتضمن المشروع إمكانية إنشاء وإدارة دليل الحسابات، مع إمكانية إضافة الحسابات وتعديلها وتصنيفها حسب طبيعة النشاط.</p>
-            <p>ويمكن أن يشمل ذلك حسابات:</p>
-            <ul>
-                <li>الأصول.</li>
-                <li>الخصوم.</li>
-                <li>حقوق الملكية.</li>
-                <li>الإيرادات.</li>
-                <li>المصروفات.</li>
-                <li>العملاء.</li>
-                <li>الموردين.</li>
-                <li>الصندوق.</li>
-                <li>البنوك.</li>
-                <li>المخزون.</li>
-                <li>الأصول الثابتة وغيرها.</li>
-            </ul>
-            <p style="margin-top: 1rem;">ويهدف ذلك إلى جعل التطبيق قابلًا للتكيف مع مختلف أنواع الأنشطة والمؤسسات.</p>
-        </section>
+            <h3 id="sub-chart-accounts">4.2 دليل الحسابات</h3>
+            <p>تطوير دليل حسابات قابل للتخصيص وفق طبيعة نشاط المؤسسة، بما يشمل الأصول والخصوم وحقوق الملكية والإيرادات والمصروفات والعملاء والموردين والصندوق والبنوك والمخزون وغيرها.</p>
 
-        <section>
-            <h2><i class="fa-solid fa-users"></i> 6. إدارة العملاء</h2>
-            <p>يوفر Smart Accountant نظامًا خاصًا بإدارة العملاء، بحيث يستطيع المستخدم إنشاء ملف لكل عميل يحتوي على بياناته وحركاته المالية.</p>
-            <p>ومن خلال حساب العميل يمكن معرفة:</p>
-            <ul>
-                <li>إجمالي المبيعات.</li>
-                <li>المبالغ المدفوعة.</li>
-                <li>المبالغ المتبقية.</li>
-                <li>الديون المستحقة.</li>
-                <li>الفواتير.</li>
-                <li>تاريخ العمليات.</li>
-                <li>كشف حساب العميل.</li>
-                <li>آخر عملية أو دفعة.</li>
-                <li>الرصيد الحالي.</li>
-            </ul>
-            <p style="margin-top: 1rem;">وهذا يساعد المؤسسة على متابعة حقوقها المالية وتقليل ضياع المعلومات.</p>
-        </section>
+            <h3 id="sub-customers">4.3 إدارة العملاء</h3>
+            <p>تطوير نظام خاص بإدارة العملاء، يتضمن بيانات العميل، العمليات، الفواتير، المدفوعات، الديون وكشوف الحساب.</p>
 
-        <section>
-            <h2><i class="fa-solid fa-truck"></i> 7. إدارة الموردين</h2>
-            <p>كما يوفر التطبيق نظامًا متكاملًا لإدارة الموردين ومتابعة الالتزامات المالية تجاههم.</p>
-            <p>يمكن للمستخدم تسجيل:</p>
+            <h3 id="sub-suppliers">4.4 إدارة الموردين</h3>
+            <p>تطوير نظام لإدارة الموردين ومتابعة المشتريات والفواتير والمدفوعات والديون والالتزامات المالية.</p>
+
+            <h3 id="sub-sales">4.5 نظام المبيعات</h3>
+            <p>تطوير وحدة متكاملة لإدارة عمليات البيع وربطها بالعملاء والفواتير والمخزون والحسابات.</p>
+
+            <h3 id="sub-billing-system">4.6 نظام الفوترة المتكامل</h3>
+            <p>تطوير نظام فوترة شامل يتجاوز الفواتير المرتبطة بالعمليات الحالية، ليشمل مستقبلًا:</p>
             <ul>
-                <li>بيانات المورد.</li>
-                <li>المشتريات.</li>
+                <li>فواتير البيع.</li>
                 <li>فواتير الشراء.</li>
-                <li>المدفوعات.</li>
-                <li>الديون.</li>
-                <li>الرصيد المستحق.</li>
-                <li>كشف حساب المورد.</li>
-                <li>تاريخ المعاملات.</li>
-            </ul>
-            <p style="margin-top: 1rem;">وبذلك يستطيع صاحب المؤسسة معرفة من له أموال على المؤسسة وكم تبلغ هذه الالتزامات.</p>
-        </section>
-
-        <section>
-            <h2><i class="fa-solid fa-file-invoice-dollar"></i> 8. المبيعات والفواتير</h2>
-            <p>يتضمن المشروع نظامًا لإدارة عمليات البيع وإصدار الفواتير.</p>
-            <p>يمكن إنشاء فاتورة تحتوي على:</p>
-            <ul>
-                <li>بيانات المؤسسة.</li>
-                <li>بيانات العميل.</li>
-                <li>المنتجات أو الخدمات.</li>
-                <li>الكميات.</li>
-                <li>الأسعار.</li>
+                <li>بيانات العملاء.</li>
+                <li>بيانات الموردين.</li>
+                <li>المنتجات والخدمات.</li>
+                <li>الكميات والأسعار.</li>
                 <li>التخفيضات.</li>
                 <li>الضرائب عند الحاجة.</li>
-                <li>المجموع.</li>
-                <li>المبلغ المدفوع.</li>
-                <li>المبلغ المتبقي.</li>
-                <li>طريقة الدفع.</li>
-                <li>تاريخ الفاتورة.</li>
+                <li>المدفوع والمتبقي.</li>
+                <li>طرق الدفع.</li>
+                <li>الحفظ والمشاركة والطباعة.</li>
             </ul>
-            <p style="margin-top: 1rem;">كما يمكن تطوير النظام ليتيح حفظ الفواتير ومشاركتها أو طباعتها بصيغ مختلفة.</p>
-        </section>
 
-        <section>
-            <h2><i class="fa-solid fa-shopping-cart"></i> 9. المشتريات</h2>
-            <p>يوفر Smart Accountant وحدة لإدارة عمليات الشراء، بداية من تسجيل عملية الشراء ووصولًا إلى تسجيل الفاتورة والدفعة وربطها بالمورد.</p>
-            <p>ويمكن مستقبلاً توسيع الوحدة لتشمل:</p>
-            <p style="text-align: center; margin: 1rem 0; font-weight: bold; color: #93c5fd;">طلب شراء &larr; أمر شراء &larr; استلام &larr; فاتورة شراء &larr; تسديد</p>
-            <p>وذلك من أجل بناء دورة مشتريات متكاملة.</p>
-        </section>
+            <h3 id="sub-purchases">4.7 إدارة المشتريات</h3>
+            <p>تطوير دورة مشتريات متكاملة تشمل تسجيل عمليات الشراء والفواتير والدفعات وربطها بالموردين.</p>
 
-        <section>
-            <h2><i class="fa-solid fa-boxes-stacked"></i> 10. إدارة المخزون</h2>
-            <p>من الوحدات القابلة للتطوير في Smart Accountant نظام إدارة المخزون، والذي يسمح للمستخدم بمتابعة:</p>
+            <h3 id="sub-inventory">4.8 إدارة المخزون</h3>
+            <p>تطوير نظام لمتابعة المنتجات والكميات وحركات الدخول والخروج وأسعار الشراء والبيع والمخزون الحالي، مع إمكانية إضافة الباركود والمستودعات وتعدد المخازن مستقبلًا.</p>
+
+            <h3 id="sub-budgets">4.9 الميزانيات</h3>
+            <p>تطوير نظام يسمح للمستخدم بوضع ميزانيات مالية ومقارنة المبالغ المخطط لها بالمبالغ الفعلية.</p>
+
+            <h3 id="sub-treasury">4.10 الصندوق والحسابات البنكية</h3>
+            <p>تطوير نظام متقدم لإدارة الصندوق والحسابات البنكية، بما يشمل الإيداعات والسحوبات والتحويلات والمصاريف البنكية والتسويات والمطابقة البنكية.</p>
+
+            <h3 id="sub-reports">4.11 التقارير المالية والمحاسبية</h3>
+            <p>تطوير مجموعة من التقارير، مثل:</p>
             <ul>
-                <li>المنتجات.</li>
-                <li>الكميات.</li>
-                <li>أسعار الشراء.</li>
-                <li>أسعار البيع.</li>
-                <li>حركة الدخول والخروج.</li>
-                <li>المخزون الحالي.</li>
-                <li>المنتجات منخفضة المخزون.</li>
-                <li>المشتريات والمبيعات المرتبطة بالمخزون.</li>
-            </ul>
-            <p style="margin-top: 1rem;">كما يمكن مستقبلًا إضافة الباركود والمستودعات وتعدد المخازن وحساب تكلفة المخزون.</p>
-        </section>
-
-        <section>
-            <h2><i class="fa-solid fa-chart-pie"></i> 11. الميزانيات</h2>
-            <p>يتضمن المشروع مفهوم الميزانية المالية لمساعدة المستخدم على التخطيط بدل الاكتفاء بتسجيل العمليات.</p>
-            <p>يمكن للمستخدم تحديد ميزانية شهرية أو سنوية للمصاريف، مثل:</p>
-            <ul>
-                <li>النقل.</li>
-                <li>الكهرباء.</li>
-                <li>الإيجار.</li>
-                <li>الرواتب.</li>
-                <li>المشتريات.</li>
-                <li>التسويق.</li>
-                <li>المصاريف التشغيلية.</li>
-            </ul>
-            <p style="margin-top: 1rem;">ثم يقارن النظام بين المخطط والمحقق فعليًا، ويظهر للمستخدم مدى التزامه بالميزانية والتنبيهات عند تجاوز الحدود المحددة.</p>
-        </section>
-
-        <section>
-            <h2><i class="fa-solid fa-vault"></i> 12. الصندوق والبنوك</h2>
-            <p>يسمح التطبيق بإدارة الأموال الموجودة في الصندوق ومتابعة الحركات الداخلة والخارجة.</p>
-            <p>كما يمكن تطوير النظام لإدارة الحسابات البنكية وربط العمليات بها، مع إمكانية إضافة:</p>
-            <ul>
-                <li>الإيداعات.</li>
-                <li>السحوبات.</li>
-                <li>التحويلات.</li>
-                <li>المصاريف البنكية.</li>
-                <li>التسويات البنكية.</li>
-                <li>مطابقة كشوف الحساب.</li>
-            </ul>
-        </section>
-
-        <section>
-            <h2><i class="fa-solid fa-file-lines"></i> 13. التقارير المالية</h2>
-            <p>من أهم أهداف Smart Accountant تحويل البيانات المسجلة إلى معلومات مفيدة.</p>
-            <p>يمكن أن تشمل التقارير:</p>
-            <ul>
-                <li>كشف الحساب.</li>
                 <li>دفتر اليومية.</li>
                 <li>دفتر الأستاذ.</li>
                 <li>ميزان المراجعة.</li>
                 <li>قائمة الدخل.</li>
                 <li>الميزانية.</li>
                 <li>التدفقات النقدية.</li>
-                <li>تقرير الإيرادات.</li>
-                <li>تقرير المصروفات.</li>
-                <li>تقرير المبيعات.</li>
-                <li>تقرير المشتريات.</li>
-                <li>تقرير العملاء.</li>
-                <li>تقرير الموردين.</li>
-                <li>تقرير الديون.</li>
+                <li>تقارير المبيعات والمشتريات.</li>
+                <li>تقارير العملاء والموردين.</li>
+                <li>تقارير الديون.</li>
                 <li>تقارير المخزون.</li>
             </ul>
-            <p style="margin-top: 1rem;">كما يمكن توفير رسوم ومؤشرات تساعد المستخدم على فهم الأرقام بصورة أسرع.</p>
+
+            <h3 id="sub-advanced-analysis">4.12 التحليل المالي المتقدم</h3>
+            <p>تطوير أدوات تحليل مالي أكثر تقدمًا تشمل دراسة تطور الإيرادات والمصروفات والربحية والسيولة والديون والأداء المالي بين الفترات المختلفة.</p>
         </section>
 
-        <section>
-            <h2><i class="fa-solid fa-chart-line"></i> 14. التحليل المالي</h2>
-            <p>لا يقتصر التطبيق على عرض الأرقام، بل يهدف إلى تحليلها.</p>
-            <p>يمكن للنظام تحليل:</p>
+        <section id="future-services">
+            <h2><i class="fa-solid fa-star"></i> 5. خدمات مستقبلية إضافية</h2>
+            <p>توجد كذلك مجموعة من الخدمات التي يمكن تطويرها وإضافتها تدريجيًا إلى المنصة، من بينها:</p>
             <ul>
-                <li>تطور المبيعات.</li>
-                <li>تطور المصروفات.</li>
-                <li>صافي الربح أو الخسارة.</li>
-                <li>السيولة.</li>
-                <li>الديون.</li>
-                <li>العملاء المتأخرين في الدفع.</li>
-                <li>الالتزامات تجاه الموردين.</li>
-                <li>أكبر بنود الإنفاق.</li>
-                <li>الأداء بين الأشهر والفترات المختلفة.</li>
-            </ul>
-            <p style="margin-top: 1rem;">وبذلك يتحول التطبيق من مجرد أداة تسجيل إلى أداة مساعدة في اتخاذ القرار المالي.</p>
-        </section>
-
-        <section>
-            <h2><i class="fa-solid fa-brain"></i> 15. الذكاء الاصطناعي Smart Accountant AI</h2>
-            <p>يُعد الذكاء الاصطناعي أحد أهم العناصر المستقبلية في المشروع.</p>
-            <p>يهدف Smart Accountant AI إلى تقديم مساعد محاسبي ذكي متخصص في المجال المالي والمحاسبي، وليس مساعدًا عامًا.</p>
-            <p>يمكن للمستخدم طرح أسئلة مثل:</p>
-            <p style="text-align: center; margin: 1rem 0; font-weight: bold; color: #93c5fd;">"لدي مبلغ 100000 دج، اشتريت بضاعة بـ80000 دج والباقي نقدًا، كيف أسجل العملية؟"</p>
-            <p>فيقوم المساعد بشرح المعالجة المحاسبية واقتراح القيد المناسب وفق المعطيات المقدمة.</p>
-            <p>كما يمكن أن يساعد في:</p>
-            <ul>
-                <li>شرح القيود اليومية.</li>
-                <li>تفسير المصطلحات المحاسبية.</li>
-                <li>تحليل العمليات.</li>
-                <li>الإجابة عن الأسئلة المحاسبية.</li>
-                <li>اقتراح الحسابات المناسبة.</li>
-                <li>تحليل المصاريف.</li>
-                <li>تفسير التقارير.</li>
-                <li>مساعدة الطلبة على فهم المحاسبة.</li>
-                <li>تحليل الوضعية المالية.</li>
-                <li>تقديم تنبيهات وتوصيات مالية.</li>
-            </ul>
-            <p style="margin-top: 1rem;">ومن المخطط تطوير الذكاء الاصطناعي تدريجيًا ليصبح قادرًا على التعامل مع عدد أكبر من السيناريوهات المحاسبية الواقعية.</p>
-        </section>
-
-        <section>
-            <h2><i class="fa-solid fa-microphone"></i> 16. المساعد الصوتي والذكي</h2>
-            <p>من الخدمات المستقبلية الممكنة للمشروع إمكانية التفاعل مع التطبيق باللغة الطبيعية، بحيث يستطيع المستخدم كتابة أو التحدث مثلًا:</p>
-            <p style="text-align: center; margin: 1rem 0; font-weight: bold; color: #93c5fd;">"سجل مصروف كهرباء بقيمة 12000 دينار اليوم."</p>
-            <p>ثم يقوم النظام بتحويل الطلب إلى عملية محاسبية منظمة بعد تأكيد المستخدم.</p>
-            <p>وهذا من شأنه تقليل الوقت المطلوب لإدخال البيانات.</p>
-        </section>
-
-        <section>
-            <h2><i class="fa-solid fa-camera"></i> 17. قراءة الفواتير والمستندات بالذكاء الاصطناعي</h2>
-            <p>من الخدمات المستقبلية المقترحة إضافة إمكانية تصوير الفاتورة أو تحميلها، ثم استخدام تقنيات الذكاء الاصطناعي والتعرف الضوئي على النصوص لاستخراج البيانات منها.</p>
-            <p>مثل:</p>
-            <ul>
-                <li>اسم المورد.</li>
-                <li>رقم الفاتورة.</li>
-                <li>التاريخ.</li>
-                <li>المنتجات.</li>
-                <li>الكميات.</li>
-                <li>الأسعار.</li>
-                <li>المجموع.</li>
-                <li>الضرائب.</li>
-            </ul>
-            <p style="margin-top: 1rem;">ثم مراجعة المعلومات قبل تسجيلها داخل النظام.</p>
-        </section>
-
-        <section>
-            <h2><i class="fa-solid fa-bell"></i> 18. الإشعارات والتنبيهات</h2>
-            <p>يمكن للتطبيق إرسال تنبيهات للمستخدم حول الأحداث المهمة، مثل:</p>
-            <ul>
-                <li>اقتراب موعد تسديد فاتورة.</li>
-                <li>تأخر عميل عن الدفع.</li>
-                <li>ارتفاع المصاريف.</li>
-                <li>انخفاض المخزون.</li>
-                <li>تجاوز الميزانية.</li>
-                <li>وجود فاتورة مستحقة.</li>
-                <li>اقتراب موعد مالي مهم.</li>
-            </ul>
-        </section>
-
-        <section>
-            <h2><i class="fa-solid fa-folder-open"></i> 19. إدارة المستندات</h2>
-            <p>يمكن ربط العمليات المحاسبية بالمستندات الخاصة بها، مثل:</p>
-            <ul>
-                <li>الفواتير.</li>
-                <li>الإيصالات.</li>
-                <li>سندات القبض.</li>
-                <li>سندات الدفع.</li>
-                <li>أوامر الشراء.</li>
-                <li>المستندات المحاسبية.</li>
-            </ul>
-            <p style="margin-top: 1rem;">وهذا يساعد في إنشاء سجل مالي أكثر تنظيمًا وقابلية للمراجعة.</p>
-        </section>
-
-        <section>
-            <h2><i class="fa-solid fa-shield-halved"></i> 20. النسخ الاحتياطي وحماية البيانات</h2>
-            <p>من الجوانب المهمة في المشروع المحافظة على بيانات المستخدمين، مع العمل على توفير آليات للنسخ الاحتياطي والاسترجاع وحماية البيانات.</p>
-            <p>ويمكن مستقبلًا اعتماد بنية سحابية تتيح مزامنة البيانات بين الأجهزة، مع تطبيق مستويات مختلفة من الصلاحيات حسب نوع المستخدم.</p>
-        </section>
-
-        <section>
-            <h2><i class="fa-solid fa-user-gear"></i> 21. تعدد المستخدمين والصلاحيات</h2>
-            <p>من الخدمات المستقبلية إمكانية إنشاء أكثر من مستخدم داخل المؤسسة.</p>
-            <p>على سبيل المثال:</p>
-            <ul>
-                <li><strong>المدير:</strong> صلاحيات كاملة.</li>
-                <li><strong>المحاسب:</strong> إدارة العمليات والتقارير المحاسبية.</li>
-                <li><strong>الموظف:</strong> إدخال بعض العمليات فقط.</li>
-                <li><strong>البائع:</strong> إنشاء المبيعات والفواتير.</li>
-            </ul>
-            <p style="margin-top: 1rem;">مع إمكانية تحديد ما يستطيع كل مستخدم الوصول إليه أو تعديله.</p>
-        </section>
-
-        <section>
-            <h2><i class="fa-solid fa-building"></i> 22. دعم المؤسسات والشركات</h2>
-            <p>لا يستهدف Smart Accountant الأفراد فقط، وإنما يطمح إلى خدمة:</p>
-            <ul>
-                <li>التجار.</li>
-                <li>المحلات.</li>
-                <li>المؤسسات الصغيرة والمتوسطة.</li>
-                <li>الشركات الناشئة.</li>
-                <li>أصحاب المشاريع.</li>
-                <li>المهنيين.</li>
-                <li>مقدمي الخدمات.</li>
-                <li>الموزعين.</li>
-                <li>المقاولين.</li>
-                <li>المحاسبين.</li>
-                <li>الطلبة والمتدربين في مجال المحاسبة.</li>
-            </ul>
-        </section>
-
-        <section>
-            <h2><i class="fa-solid fa-graduation-cap"></i> 23. الجانب التعليمي</h2>
-            <p>نظرًا إلى ارتباط المشروع بمجال علوم المالية والمحاسبة، يمكن تطوير Smart Accountant ليكون أيضًا وسيلة تعليمية لطلبة المحاسبة.</p>
-            <p>ومن الخدمات المقترحة:</p>
-            <ul>
-                <li>شرح المفاهيم المحاسبية.</li>
-                <li>أمثلة على القيود اليومية.</li>
-                <li>تمرينات محاسبية.</li>
-                <li>أسئلة وأجوبة.</li>
-                <li>حالات تطبيقية.</li>
-                <li>شرح القوائم المالية.</li>
-                <li>محاكاة العمليات المحاسبية.</li>
-                <li>مساعد ذكاء اصطناعي تعليمي متخصص.</li>
-            </ul>
-            <p style="margin-top: 1rem;">وبذلك يجمع المشروع بين الجانب المهني والجانب التعليمي.</p>
-        </section>
-
-        <section>
-            <h2><i class="fa-solid fa-expand"></i> 24. التوسع المستقبلي</h2>
-            <p>المشروع مصمم ليكون قابلًا للتطوير وليس منتجًا محدودًا بمجموعة ثابتة من الخصائص.</p>
-            <p>ومن الخدمات التي يمكن إدراجها تدريجيًا:</p>
-            <ul>
+                <li>المساعد الصوتي.</li>
+                <li>إدخال العمليات باللغة الطبيعية.</li>
+                <li>قراءة الفواتير والمستندات باستخدام الذكاء الاصطناعي وOCR.</li>
+                <li>الإشعارات والتنبيهات المالية.</li>
+                <li>إدارة المستندات.</li>
+                <li>النسخ الاحتياطي والاسترجاع.</li>
+                <li>المزامنة السحابية.</li>
+                <li>تعدد المستخدمين والصلاحيات.</li>
                 <li>إدارة الأصول الثابتة.</li>
-                <li>الرواتب.</li>
-                <li>الضرائب.</li>
+                <li>إدارة الرواتب.</li>
+                <li>إدارة الضرائب.</li>
                 <li>إدارة المشاريع.</li>
                 <li>نقاط البيع POS.</li>
                 <li>الباركود.</li>
                 <li>تعدد الفروع.</li>
                 <li>تعدد العملات.</li>
-                <li>الحسابات البنكية.</li>
                 <li>التسوية البنكية.</li>
-                <li>التقارير المتقدمة.</li>
-                <li>التحليلات التنبؤية.</li>
                 <li>الفوترة الإلكترونية.</li>
-                <li>الربط مع الخدمات الخارجية.</li>
                 <li>تطبيق ويب.</li>
                 <li>تطبيق سطح المكتب.</li>
-                <li>مزامنة الأجهزة.</li>
                 <li>واجهة API.</li>
-                <li>لوحة تحكم للإدارة.</li>
+                <li>لوحة تحكم إدارية.</li>
                 <li>نظام اشتراكات للمؤسسات.</li>
             </ul>
+            <p style="margin-top: 1rem;">هذه الخدمات ليست جزءًا من الوظائف المكتملة حاليًا، وإنما تمثل مراحل تطوير مستقبلية للمشروع.</p>
         </section>
 
-        <section>
-            <h2><i class="fa-solid fa-seedling"></i> 25. مشروع قابل للتوسع كمؤسسة ناشئة</h2>
-            <p>لا يُنظر إلى Smart Accountant على أنه مجرد تطبيق جامعي، بل كمشروع قابل للتحول إلى مؤسسة ناشئة جزائرية في مجال التكنولوجيا المالية والمحاسبية FinTech.</p>
-            <p>ويتمثل الهدف في بناء منتج رقمي محلي قادر على تقديم حلول محاسبية حديثة للمؤسسات والأفراد، مع إمكانية التوسع مستقبلاً داخل السوق الجزائرية ثم الأسواق العربية والإفريقية.</p>
+        <section id="targets">
+            <h2><i class="fa-solid fa-building"></i> 6. دعم المؤسسات والشركات</h2>
+            <p>يستهدف Smart Accountant مستقبلًا مجموعة واسعة من المستخدمين، من بينهم:</p>
+            <ul>
+                <li>التجار.</li>
+                <li>أصحاب المحلات.</li>
+                <li>المؤسسات الصغيرة والمتوسطة.</li>
+                <li>الشركات الناشئة.</li>
+                <li>أصحاب المشاريع.</li>
+                <li>المهنيون.</li>
+                <li>مقدمو الخدمات.</li>
+                <li>الموزعون.</li>
+                <li>المقاولون.</li>
+                <li>المحاسبون.</li>
+                <li>طلبة المحاسبة والمتدربون.</li>
+            </ul>
+            <p style="margin-top: 1rem;">ويهدف المشروع إلى توفير حل قابل للتكيف مع احتياجات مختلف الأنشطة والمؤسسات.</p>
         </section>
 
-        <section>
-            <h2><i class="fa-solid fa-university"></i> 26. العلاقة مع جامعة النعامة</h2>
-            <p>يمثل المشروع تجربة تطبيقية تجمع بين المعرفة الأكاديمية في مجال العلوم المالية والمحاسبة والتكنولوجيا الحديثة والذكاء الاصطناعي.</p>
-            <p>وقد تم إعداد وتطوير فكرة المشروع من طرف:</p>
+        <section id="education">
+            <h2><i class="fa-solid fa-graduation-cap"></i> 7. الجانب التعليمي</h2>
+            <p>نظرًا لارتباط المشروع بمجال علوم المالية والمحاسبة، يمكن أن يشكل Smart Accountant مستقبلًا أداة مساعدة لطلبة المحاسبة من خلال توفير محتوى وتطبيقات تعليمية مرتبطة بالمحاسبة.</p>
+            <p>ومن بين الخدمات المستقبلية الممكنة:</p>
+            <ul>
+                <li>شرح المفاهيم المحاسبية.</li>
+                <li>التمارين المحاسبية.</li>
+                <li>الحالات التطبيقية.</li>
+                <li>شرح القوائم المالية.</li>
+                <li>محاكاة العمليات المحاسبية.</li>
+                <li>أدوات تعليمية للمحاسبة.</li>
+            </ul>
+            <p style="margin-top: 1rem;">ويُعد Smart Accountant AI الموجود حاليًا أداة مهمة يمكن للطلبة الاستفادة منها في فهم المواضيع والاستفسارات المحاسبية.</p>
+        </section>
+
+        <section id="expansion">
+            <h2><i class="fa-solid fa-expand"></i> 8. قابلية التوسع</h2>
+            <p>تم تصميم المشروع ليكون قابلًا للتوسع بشكل تدريجي، حيث يمثل الإصدار الحالي مرحلة أولى تركز على:</p>
+            <p style="text-align: center; margin: 1rem 0; font-weight: bold; color: #93c5fd;">العمليات المالية + الفواتير المرتبطة بالعمليات + التحليل المالي + Smart Accountant AI</p>
+            <p>بينما يتم تطوير باقي الأنظمة المحاسبية والإدارية على مراحل.</p>
+            <p style="margin-top: 1rem;">ويُخطط لإنجاز معظم الوظائف الأساسية قيد التطوير قبل نهاية السنة الجامعية، مع استمرار تطوير المشروع وإضافة وظائف أكثر تقدمًا بعد ذلك.</p>
+        </section>
+
+        <section id="startup">
+            <h2><i class="fa-solid fa-seedling"></i> 9. مشروع قابل للتحول إلى مؤسسة ناشئة</h2>
+            <p>لا يُنظر إلى Smart Accountant على أنه مجرد تطبيق جامعي، بل كمشروع رقمي قابل للتحول إلى مؤسسة ناشئة جزائرية في مجال:</p>
+            <p style="text-align: center; margin: 1rem 0; font-weight: bold; color: #34d399;">التكنولوجيا المالية FinTech + المحاسبة الرقمية + الذكاء الاصطناعي</p>
+            <p>ويهدف المشروع إلى بناء حل رقمي محلي يمكن تطويره ليتناسب مع احتياجات السوق الجزائرية، مع إمكانية التوسع مستقبلًا نحو الأسواق العربية والإفريقية.</p>
+        </section>
+
+        <section id="university">
+            <h2><i class="fa-solid fa-university"></i> 10. العلاقة مع جامعة النعامة</h2>
+            <p>يمثل Smart Accountant تجربة تطبيقية تجمع بين المعرفة الأكاديمية في مجال العلوم المالية والمحاسبة والتكنولوجيا الحديثة والبرمجة والذكاء الاصطناعي.</p>
+            <p>وقد تم إعداد وتطوير المشروع من طرف:</p>
             <p style="text-align: center; margin: 1rem 0; font-weight: bold; color: #93c5fd;">بصري خالد أبو الوليد</p>
-            <p>طالب في السنة الثالثة ليسانس – تخصص محاسبة بجامعة النعامة.</p>
-            <p style="margin-top: 1rem;">ويطمح المشروع إلى الاستفادة من البيئة الجامعية، والخبرة الأكاديمية، ومرافقة الجامعة وحاضنة الأعمال من أجل تطوير الفكرة وتحويلها من مشروع طلابي إلى مشروع مؤسسي قابل للتجسيد الاقتصادي.</p>
+            <p>طالب في السنة الثالثة ليسانس، تخصص علوم مالية ومحاسبة بجامعة النعامة.</p>
+            <p style="margin-top: 1rem;">ويطمح المشروع إلى الاستفادة من البيئة الجامعية والخبرة الأكاديمية ومرافقة الجامعة وحاضنة الأعمال، بهدف تطوير المشروع وتحويله من مشروع طلابي إلى مشروع مؤسسي قابل للتجسيد الاقتصادي.</p>
         </section>
 
-        <section>
-            <h2><i class="fa-solid fa-handshake-angle"></i> 27. طلب مرافقة ودعم إدارة الجامعة</h2>
-            <p>يتطلع صاحب المشروع إلى الحصول على مرافقة جامعة النعامة للمشروع من خلال:</p>
+        <section id="support">
+            <h2><i class="fa-solid fa-handshake-angle"></i> 11. طلب مرافقة ودعم إدارة الجامعة</h2>
+            <p>يتطلع صاحب المشروع إلى الاستفادة من مرافقة جامعة النعامة من خلال:</p>
             <ul>
                 <li>احتضان المشروع.</li>
                 <li>التوجيه الأكاديمي والتقني.</li>
@@ -904,62 +1141,57 @@
                 <li>توفير فضاء مناسب لتطوير المشروع عند الإمكان.</li>
                 <li>ربط المشروع بالمؤسسات الاقتصادية المحلية.</li>
                 <li>المساعدة في اختبار الحل مع المؤسسات والتجار.</li>
-                <li>المشاركة في مسابقات ومشاريع الابتكار وريادة الأعمال.</li>
+                <li>المشاركة في مسابقات الابتكار وريادة الأعمال.</li>
             </ul>
         </section>
 
-        <section>
-            <h2><i class="fa-solid fa-eye"></i> 28. الرؤية</h2>
-            <p>تتمثل رؤية Smart Accountant في بناء حل محاسبي جزائري ذكي وسهل الاستخدام يجعل إدارة الحسابات والعمليات المالية أكثر بساطة وتنظيمًا، ويستفيد من قوة الذكاء الاصطناعي لمساعدة المستخدم على فهم أرقامه واتخاذ قرارات أفضل.</p>
-        </section>
+        <section id="vision">
+            <h2><i class="fa-solid fa-eye"></i> 12. الرؤية والرسالة والأهداف</h2>
+            <p>تتمثل رؤية Smart Accountant في بناء حل محاسبي جزائري ذكي وسهل الاستخدام، يجعل إدارة العمليات المالية والمحاسبية أكثر تنظيمًا وبساطة، ويساعد المستخدم على فهم بياناته واتخاذ قرارات أفضل.</p>
+            <p style="margin-top: 1rem;">وتعتمد هذه الرؤية على تطوير المشروع تدريجيًا من نظام حالي يركز على العمليات المالية والفواتير المرتبطة بها والتحليل المالي والذكاء الاصطناعي المحاسبي، إلى منصة محاسبية متكاملة.</p>
 
-        <section>
-            <h2><i class="fa-solid fa-bullhorn"></i> 29. الرسالة</h2>
+            <h3 id="sub-mission" style="margin-top: 2rem;">13. الرسالة</h3>
             <p>تتمثل رسالة المشروع في:</p>
-            <p style="text-align: center; margin: 1.2rem 0; font-weight: bold; font-size: 1.2rem; color: #34d399;">تبسيط المحاسبة، رقمنة العمليات المالية، تقليل الأعمال اليدوية، وتحويل البيانات المحاسبية إلى معلومات وقرارات مفيدة.</p>
-        </section>
+            <p style="text-align: center; margin: 1.2rem 0; font-weight: bold; font-size: 1.2rem; color: #34d399;">تبسيط المحاسبة، رقمنة العمليات المالية، تقليل الأعمال اليدوية، وتحويل البيانات المالية إلى معلومات مفيدة تساعد على اتخاذ قرارات أفضل.</p>
 
-        <section>
-            <h2><i class="fa-solid fa-bullseye"></i> 30. الهدف النهائي</h2>
-            <p>الهدف النهائي لـ Smart Accountant هو إنشاء منصة واحدة تجمع بين:</p>
+            <h3 id="sub-goal" style="margin-top: 2rem;">14. الهدف النهائي</h3>
+            <p>يتمثل الهدف النهائي لـ Smart Accountant في إنشاء منصة محاسبية رقمية متكاملة تجمع تدريجيًا بين:</p>
             <p style="text-align: center; margin: 1.2rem 0; font-weight: bold; color: #93c5fd; line-height: 2.2;">المحاسبة + الإدارة المالية + المبيعات + المشتريات + الفواتير + العملاء + الموردين + المخزون + الميزانيات + التقارير + التحليل المالي + الذكاء الاصطناعي</p>
-            <p>بحيث يحصل المستخدم على نظام متكامل يستطيع من خلاله إدارة ومتابعة نشاطه المالي والمحاسبي من مكان واحد.</p>
+            <p>وذلك انطلاقًا من الوظائف المتوفرة حاليًا، وهي:</p>
+            <p style="text-align: center; margin: 1rem 0; font-weight: bold; color: #34d399;">إدراج العمليات المالية + الفواتير الخاصة بالعمليات + التحليل المالي + Smart Accountant AI</p>
+            <p>مع تطوير باقي الوظائف على مراحل، حيث يُخطط لإنجاز معظم الوظائف الأساسية قيد التطوير قبل نهاية السنة الجامعية.</p>
         </section>
 
-        <section style="background: rgba(30, 41, 59, 0.5); border: 1px solid rgba(59, 130, 246, 0.2);">
+        <section style="background: rgba(30, 41, 59, 0.5); border: 1px solid rgba(59, 130, 246, 0.2);" id="profile-card">
             <h2><i class="fa-solid fa-address-card"></i> صاحب المشروع والشعار</h2>
             <p><strong>الاسم:</strong> بصري خالد أبو الوليد</p>
-            <p><strong>المستوى:</strong> ثالثة ليسانس</p>
-            <p><strong>التخصص:</strong> محاسبة – علوم مالية ومحاسبة</p>
-            <p><strong>الجامعة:</strong> جامعة النعامة</p>
+            <p><strong>المستوى:</strong> السنة الثالثة ليسانس</p>
+            <p><strong>التخصص:</strong> علوم مالية ومحاسبة</p>
+            <p><strong>الجامعة:</strong> جامعة النعامة – الجزائر</p>
             <p><strong>المشروع:</strong> Smart Accountant</p>
             <p><strong>المجال:</strong> المحاسبة الرقمية – التكنولوجيا المالية – الذكاء الاصطناعي – ريادة الأعمال</p>
             <div style="margin-top: 2rem; text-align: center; background: rgba(59, 130, 246, 0.1); padding: 1.5rem; border-radius: 14px; border: 1px solid rgba(59, 130, 246, 0.2);">
-                <h3 style="color: #60a5fa; margin-bottom: 0.5rem;">شعار المشروع المقترح</h3>
+                <h3 style="color: #60a5fa; margin-bottom: 0.5rem;">شعار المشروع</h3>
                 <div style="display: flex; align-items: center; justify-content: center; gap: 1rem; margin-bottom: 0.8rem;">
-                    <img src="https://lh3.googleusercontent.com/d/1lrTn-hzorsvkUfn2dImfL-0B8Q3uAoku=s400" alt="شعار الشعار" style="width: 50px; height: 50px; border-radius: 50%; object-fit: cover; border: 2px solid #3b82f6; box-shadow: 0 0 15px rgba(59, 130, 246, 0.5);">
+                    <img src="https://lh3.googleusercontent.com/d/1lrTn-hzorsvkUfn2dImfL-0B8Q3uAoku=s400" alt="شعار المشروع" style="width: 50px; height: 50px; border-radius: 50%; object-fit: cover; border: 2px solid #3b82f6; box-shadow: 0 0 15px rgba(59, 130, 246, 0.5);" onerror="this.src='https://via.placeholder.com/50?text=Logo'">
                 </div>
                 <p style="font-size: 1.2rem; font-weight: bold; color: #ffffff;">Smart Accountant — محاسبة أذكى، قرارات أفضل، مستقبل رقمي.</p>
             </div>
         </section>
 
-        <!-- قسم وسائل الاتصال -->
-        <section style="background: linear-gradient(135deg, rgba(30, 41, 59, 0.7), rgba(15, 23, 42, 0.9)); border: 1px solid rgba(59, 130, 246, 0.4); text-align: center;">
+        <section id="contact" style="background: linear-gradient(135deg, rgba(30, 41, 59, 0.7), rgba(15, 23, 42, 0.9)); border: 1px solid rgba(59, 130, 246, 0.4); text-align: center;">
             <h2><i class="fa-solid fa-headset"></i> التواصل مع صاحب المشروع</h2>
             <p style="margin-bottom: 1.5rem; color: var(--text-muted);">للاستفسار، طلب المرافقة، أو التواصل المباشر:</p>
             
             <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 1.5rem; margin-top: 1.5rem;">
-                <!-- زر الواتساب -->
                 <a href="https://wa.me/qr/JW5SID6E6BGNL1" target="_blank" class="btn btn-primary" style="background: linear-gradient(135deg, #25d366, #128c7e); box-shadow: 0 10px 25px -5px rgba(37, 211, 102, 0.4);">
                     <i class="fa-brands fa-whatsapp text-xl"></i> مراسلة عبر الواتساب
                 </a>
 
-                <!-- زر التليجرام -->
                 <a href="https://t.me/khaledbasri" target="_blank" class="btn btn-telegram">
                     <i class="fa-brands fa-telegram text-xl"></i> مراسلة عبر التليجرام
                 </a>
                 
-                <!-- زر البريد الإلكتروني -->
                 <a href="mailto:khaled.basri745@gmail.com" class="btn btn-secondary">
                     <i class="fa-solid fa-envelope"></i> مراسلة عبر البريد الإلكتروني
                 </a>
@@ -973,7 +1205,6 @@
 
     </div>
 
-    <!-- نافذة رسالة قيد التطوير -->
     <div class="dev-modal-overlay" id="devModal">
         <div class="modal-card">
             <i class="fa-solid fa-person-digging" style="font-size: 3rem; color: #f87171; margin-bottom: 1rem;"></i>
@@ -1008,6 +1239,166 @@
         function closeDevModal() {
             document.getElementById('devModal').classList.remove('active');
         }
+
+        // دالة طي شريط الاختصارات
+        function toggleToolbarCollapse() {
+            const navBar = document.getElementById('quickNavBar');
+            const icon = document.getElementById('toggleToolbarIcon');
+            navBar.classList.toggle('collapsed');
+            if (navBar.classList.contains('collapsed')) {
+                icon.classList.remove('fa-chevron-up');
+                icon.classList.add('fa-chevron-down');
+            } else {
+                icon.classList.remove('fa-chevron-down');
+                icon.classList.add('fa-chevron-up');
+            }
+        }
+
+        // دالة التحكم بفتح وإغلاق حقل البحث في كامل شريط العنوان بدون انيميشن
+        function toggleInlineSearch() {
+            const brandNormal = document.getElementById('quickNavBrandNormal');
+            const searchBox = document.getElementById('inlineSearchBox');
+            const floatingBtn = document.getElementById('floatingSearchBtn');
+            const toggleToolbarBtn = document.getElementById('toggleToolbarBtn');
+            const dropdown = document.getElementById('searchResultsDropdown');
+            
+            searchBox.classList.toggle('active');
+            if (searchBox.classList.contains('active')) {
+                brandNormal.classList.add('hidden');
+                floatingBtn.classList.add('hidden');
+                toggleToolbarBtn.classList.add('hidden');
+                document.getElementById('inlineSearchInput').focus();
+            } else {
+                brandNormal.classList.remove('hidden');
+                floatingBtn.classList.remove('hidden');
+                toggleToolbarBtn.classList.remove('hidden');
+                dropdown.style.display = 'none';
+                document.getElementById('inlineSearchInput').value = '';
+            }
+        }
+
+        const searchableItems = [
+            { title: "البطاقة التعريفية للمشروع", id: "id-card", tag: "عام" },
+            { title: "التعريف بالمشروع", id: "intro", tag: "نظرة عامة" },
+            { title: "فكرة Smart Accountant", id: "idea", tag: "الفكرة" },
+            { title: "الوظائف المتوفرة حاليًا", id: "current-features", tag: "الوظائف" },
+            { title: "إدراج العمليات المالية", id: "sub-operations", tag: "الوظائف الحالية" },
+            { title: "الفواتير الخاصة بالعمليات", id: "sub-invoices", tag: "الوظائف الحالية" },
+            { title: "التحليل المالي الأساسي", id: "sub-analysis", tag: "الوظائف الحالية" },
+            { title: "Smart Accountant AI", id: "sub-ai", tag: "الذكاء الاصطناعي" },
+            { title: "الوظائف قيد التطوير", id: "upcoming", tag: "التطوير" },
+            { title: "القيود اليومية والمحاسبة المزدوجة", id: "sub-double-entry", tag: "قيد التطوير" },
+            { title: "دليل الحسابات", id: "sub-chart-accounts", tag: "قيد التطوير" },
+            { title: "إدارة العملاء", id: "sub-customers", tag: "قيد التطوير" },
+            { title: "إدارة الموردين", id: "sub-suppliers", tag: "قيد التطوير" },
+            { title: "نظام المبيعات", id: "sub-sales", tag: "قيد التطوير" },
+            { title: "نظام الفوترة المتكامل", id: "sub-billing-system", tag: "قيد التطوير" },
+            { title: "إدارة المشتريات", id: "sub-purchases", tag: "قيد التطوير" },
+            { title: "إدارة المخزون", id: "sub-inventory", tag: "قيد التطوير" },
+            { title: "الميزانيات", id: "sub-budgets", tag: "قيد التطوير" },
+            { title: "الصندوق والحسابات البنكية", id: "sub-treasury", tag: "قيد التطوير" },
+            { title: "التقارير المالية والمحاسبية", id: "sub-reports", tag: "قيد التطوير" },
+            { title: "التحليل المالي المتقدم", id: "sub-advanced-analysis", tag: "قيد التطوير" },
+            { title: "خدمات مستقبلية إضافية", id: "future-services", tag: "خدمات" },
+            { title: "دعم المؤسسات والشركات", id: "targets", tag: "المستهدفون" },
+            { title: "الجانب التعليمي للطلبة", id: "education", tag: "تعليم" },
+            { title: "قابلية التوسع والمستقبل", id: "expansion", tag: "التوسع" },
+            { title: "مشروع قابل للتحول إلى مؤسسة ناشئة", id: "startup", tag: "مؤسسة ناشئة" },
+            { title: "العلاقة مع جامعة النعامة", id: "university", tag: "الجامعة" },
+            { title: "طلب مرافقة ودعم إدارة الجامعة", id: "support", tag: "مرافقة" },
+            { title: "الرؤية والرسالة والأهداف", id: "vision", tag: "رؤية" },
+            { title: "صاحب المشروع والشعار", id: "profile-card", tag: "المطور" },
+            { title: "التواصل مع صاحب المشروع", id: "contact", tag: "تواصل" }
+        ];
+
+        function filterInlineShortcuts() {
+            const query = document.getElementById('inlineSearchInput').value.trim().toLowerCase();
+            const dropdown = document.getElementById('searchResultsDropdown');
+            
+            if (query === "") {
+                dropdown.style.display = "none";
+                dropdown.innerHTML = "";
+                return;
+            }
+
+            const filtered = searchableItems.filter(item => 
+                item.title.toLowerCase().includes(query) || item.tag.toLowerCase().includes(query)
+            );
+
+            if (filtered.length === 0) {
+                dropdown.innerHTML = `<div class="search-result-item" style="justify-content: center; color: var(--text-muted);">لا توجد نتائج مطابقة لبحثك</div>`;
+                dropdown.style.display = "block";
+                return;
+            }
+
+            let html = "";
+            filtered.forEach(item => {
+                html += `<a href="#${item.id}" class="search-result-item" onclick="selectSearchResult()">
+                    ${item.title}
+                    <span>${item.tag}</span>
+                </a>`;
+            });
+
+            dropdown.innerHTML = html;
+            dropdown.style.display = "block";
+        }
+
+        function selectSearchResult() {
+            document.getElementById('inlineSearchInput').value = "";
+            document.getElementById('searchResultsDropdown').style.display = "none";
+            toggleInlineSearch();
+        }
+
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('.search-action-wrapper') && !e.target.closest('.inline-search-box')) {
+                const searchBox = document.getElementById('inlineSearchBox');
+                if (searchBox.classList.contains('active')) {
+                    searchBox.classList.remove('active');
+                    document.getElementById('quickNavBrandNormal').classList.remove('hidden');
+                    document.getElementById('floatingSearchBtn').classList.remove('hidden');
+                    document.getElementById('toggleToolbarBtn').classList.remove('hidden');
+                    document.getElementById('searchResultsDropdown').style.display = "none";
+                    document.getElementById('inlineSearchInput').value = '';
+                }
+            }
+        });
+
+        let slideIndex = 0;
+        let slideTimer;
+
+        function showSlides() {
+            let slides = document.querySelectorAll(".ad-slide");
+            let dots = document.querySelectorAll(".dot");
+            
+            slides.forEach(slide => slide.classList.remove("active-slide"));
+            dots.forEach(dot => dot.classList.remove("active-dot"));
+
+            slideIndex++;
+            if (slideIndex > slides.length) { slideIndex = 1; }
+
+            slides[slideIndex - 1].classList.add("active-slide");
+            dots[slideIndex - 1].classList.add("active-dot");
+
+            slideTimer = setTimeout(showSlides, 4000);
+        }
+
+        function currentSlide(n) {
+            clearTimeout(slideTimer);
+            slideIndex = n;
+            let slides = document.querySelectorAll(".ad-slide");
+            let dots = document.querySelectorAll(".dot");
+
+            slides.forEach(slide => slide.classList.remove("active-slide"));
+            dots.forEach(dot => dot.classList.remove("active-dot"));
+
+            slides[slideIndex].classList.add("active-slide");
+            dots[slideIndex].classList.add("active-dot");
+            
+            slideTimer = setTimeout(showSlides, 4000);
+        }
+
+        showSlides();
     </script>
 </body>
 </html>
+
