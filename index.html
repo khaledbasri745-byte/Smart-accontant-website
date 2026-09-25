@@ -394,51 +394,50 @@
             z-index: 10;
         }
 
+        /* معرض الصور بنظام ظهور كل صورة لوحدها (Fade In Animation) */
         .ad-slideshow-container {
-            margin-bottom: 3.5rem;
-            display: flex;
-            justify-content: center;
-        }
-
-        .ad-card-view {
-            background: var(--card-bg);
-            border: 2px solid rgba(59, 130, 246, 0.4);
-            border-radius: 24px;
-            padding: 1.5rem;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+            position: relative;
             width: 100%;
             max-width: 850px;
-            position: relative;
+            margin: auto;
+            margin-bottom: 3.5rem;
             overflow: hidden;
-            text-align: center;
+            border-radius: 24px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+            border: 2px solid rgba(59, 130, 246, 0.4);
+            background: var(--card-bg);
+            padding: 1.5rem;
         }
 
-        .ad-slide {
+        .ad-slide-fade {
             display: none;
-            animation: fadeEffect 0.8s ease-in-out;
+            width: 100%;
+            animation: fadeInImage 0.8s ease-in-out;
         }
 
-        .ad-slide.active-slide {
+        .ad-slide-fade.active-slide {
             display: block;
         }
 
-        .ad-slide img {
+        @keyframes fadeInImage {
+            from { opacity: 0.3; transform: scale(0.98); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .ad-slide-fade img {
             width: 100%;
             height: 480px;
             object-fit: contain;
+            display: block;
             border-radius: 16px;
             border: 1px solid rgba(59, 130, 246, 0.2);
             background-color: #0b0f19;
         }
 
-        @keyframes fadeEffect {
-            from { opacity: 0.4; transform: scale(0.98); }
-            to { opacity: 1; transform: scale(1); }
-        }
-
         .ad-dots {
             text-align: center;
             margin-top: 1rem;
+            background: transparent;
         }
 
         .dot {
@@ -824,7 +823,7 @@
             </div>
         </div>
 
-                <!-- التولبار الثاني: شريط الاختصارات فقط بدون فراغات جانبية -->
+        <!-- التولبار الثاني: شريط الاختصارات فقط بدون فراغات جانبية -->
         <nav class="quick-nav-bar" id="quickNavBar">
             <div class="quick-nav-container" id="quickNavContainer">
                 <a href="#id-card" class="quick-nav-item" data-keywords="بطاقة تعريف مشروع معلومات عامة"><i class="fa-solid fa-id-card"></i> البطاقة التعريفية</a>
@@ -838,6 +837,7 @@
                 <a href="#expansion" class="quick-nav-item" data-keywords="قابلية التوسع المستقبل"><i class="fa-solid fa-expand"></i> قابلية التوسع</a>
                 <a href="#startup" class="quick-nav-item" data-keywords="مؤسسة ناشئة فنتك مالية رقمية الجزائر"><i class="fa-solid fa-seedling"></i> مؤسسة ناشئة</a>
                 <a href="#university" class="quick-nav-item" data-keywords="جامعة النعامة صالحي أحمد علوم مالية ومحاسبة"><i class="fa-solid fa-university"></i> جامعة النعامة</a>
+                <a href="#team" class="quick-nav-item" data-keywords="أعضاء المشروع فريق العمل"><i class="fa-solid fa-users"></i> أعضاء المشروع</a>
                 <a href="#support" class="quick-nav-item" data-keywords="طلب مرافقة ودعم إدارة الجامعة"><i class="fa-solid fa-handshake-angle"></i> طلب مرافقة</a>
                 <a href="#vision" class="quick-nav-item" data-keywords="الرؤية والرسالة الهدف النهائي"><i class="fa-solid fa-eye"></i> الرؤية والرسالة</a>
                 <a href="#profile-card" class="quick-nav-item" data-keywords="صاحب المشروع المطور الشعار"><i class="fa-solid fa-address-card"></i> صاحب المشروع</a>
@@ -867,18 +867,41 @@
             </div>
         </div>
 
-        <div class="ad-slideshow-container">
-            <div class="ad-card-view">
-                <div class="ad-slide active-slide">
-                    <img src="https://lh3.googleusercontent.com/d/1rwD2qnB-dOOJTQycgTr7WlV3Xm9t3aUF=s800" alt="الإعلان الأول" onerror="this.src='https://via.placeholder.com/850x450?text=Smart+Accountant+Ad+1'">
-                </div>
-                <div class="ad-slide">
-                    <img src="https://lh3.googleusercontent.com/d/1s-Pf_cs5vnXaqSIjLm26sud2wvUvgnho=s800" alt="الإعلان الثاني" onerror="this.src='https://via.placeholder.com/850x450?text=Smart+Accountant+Ad+2'">
-                </div>
-                <div class="ad-dots">
-                    <span class="dot active-dot" onclick="currentSlide(0)"></span>
-                    <span class="dot" onclick="currentSlide(1)"></span>
-                </div>
+        <!-- معرض الصور المحدث بنظام ظهور كل صورة لوحدها (Fade In Animation) -->
+        <div class="ad-slideshow-container" id="slideshowContainer">
+            <div class="ad-slide-fade active-slide">
+                <img src="https://lh3.googleusercontent.com/d/1uDqViXqCILL6wpMbqNSN6ZrYCIrx3NR8=s800" alt="صورة 1" onerror="this.src='https://via.placeholder.com/850x450?text=Image+1'">
+            </div>
+            <div class="ad-slide-fade">
+                <img src="https://lh3.googleusercontent.com/d/1uDubhmctS4L_vmKuzfFEIX6UfFt0Vd9c=s800" alt="صورة 2" onerror="this.src='https://via.placeholder.com/850x450?text=Image+2'">
+            </div>
+            <div class="ad-slide-fade">
+                <img src="https://lh3.googleusercontent.com/d/1uT8rEOlftfwbeQ_qsldw89TA6E7veMbD=s800" alt="صورة 3" onerror="this.src='https://via.placeholder.com/850x450?text=Image+3'">
+            </div>
+            <div class="ad-slide-fade">
+                <img src="https://lh3.googleusercontent.com/d/1uWTSY1-o2Vy2kygafEpldEXaXaBJ8SM5=s800" alt="صورة 4" onerror="this.src='https://via.placeholder.com/850x450?text=Image+4'">
+            </div>
+            <div class="ad-slide-fade">
+                <img src="https://lh3.googleusercontent.com/d/1uYQhz9mxL2t50kZDRpyol3af_huHgVW7=s800" alt="صورة 5" onerror="this.src='https://via.placeholder.com/850x450?text=Image+5'">
+            </div>
+            <div class="ad-slide-fade">
+                <img src="https://lh3.googleusercontent.com/d/1uaepO9RuSFHI-Gxn-9NDOhgPOdwJwhrZ=s800" alt="صورة 6" onerror="this.src='https://via.placeholder.com/850x450?text=Image+6'">
+            </div>
+            <div class="ad-slide-fade">
+                <img src="https://lh3.googleusercontent.com/d/1uuEnySfaMLq_vrJuCWQmi1HIq1niGq2g=s800" alt="صورة 7" onerror="this.src='https://via.placeholder.com/850x450?text=Image+7'">
+            </div>
+            <div class="ad-slide-fade">
+                <img src="https://lh3.googleusercontent.com/d/1uvmquXeR5f-LizizSgL2O-ufW60ic3Ug=s800" alt="صورة 8" onerror="this.src='https://via.placeholder.com/850x450?text=Image+8'">
+            </div>
+            <div class="ad-slide-fade">
+                <img src="https://lh3.googleusercontent.com/d/1v1KmJIB2tG18j9xN0-WhShaQdXeP73-N=s800" alt="صورة 9" onerror="this.src='https://via.placeholder.com/850x450?text=Image+9'">
+            </div>
+            <div class="ad-slide-fade">
+                <img src="https://lh3.googleusercontent.com/d/1v2KVkDMS8WFGEj7L4hWYR_-0hqgsYY8H=s800" alt="صورة 10" onerror="this.src='https://via.placeholder.com/850x450?text=Image+10'">
+            </div>
+            
+            <div class="ad-dots" id="dotsContainer">
+                <!-- النقاط يتم توليدها تلقائياً -->
             </div>
         </div>
 
@@ -1126,6 +1149,19 @@
             <p style="margin-top: 1rem;">ويطمح المشروع إلى الاستفادة من البيئة الجامعية والخبرة الأكاديمية ومرافقة الجامعة وحاضنة الأعمال، بهدف تطوير المشروع وتحويله من مشروع طلابي إلى مشروع مؤسسي قابل للتجسيد الاقتصادي.</p>
         </section>
 
+        <section id="team">
+            <h2><i class="fa-solid fa-users"></i> أعضاء فريق المشروع (6 أعضاء)</h2>
+            <p>يتشكل فريق العمل والمشروع من 6 أفراد من طلبة وتخصصات العلوم المالية والمحاسبة والتقنية، بقيادة المشرف الرئيسي وإشراف زملائه:</p>
+            <div style="margin-top: 1.5rem;">
+                <p style="margin-bottom: 0.8rem; font-size: 1.1rem; color: #ffffff;"><i class="fa-solid fa-crown" style="color: #fbbf24; margin-left: 0.5rem;"></i> <strong>المشرف الرئيسي للمشروع:</strong> الطالب بصري خالد أبو الوليد</p>
+                <p style="margin-bottom: 0.6rem; font-size: 1.05rem; color: #93c5fd;"><i class="fa-solid fa-user-graduate" style="margin-left: 0.5rem;"></i> <strong>عضو الفريق الثاني:</strong> [اسم الطالب الثاني]</p>
+                <p style="margin-bottom: 0.6rem; font-size: 1.05rem; color: #93c5fd;"><i class="fa-solid fa-user-graduate" style="margin-left: 0.5rem;"></i> <strong>عضو الفريق الثالث:</strong> [اسم الطالب الثالث]</p>
+                <p style="margin-bottom: 0.6rem; font-size: 1.05rem; color: #93c5fd;"><i class="fa-solid fa-user-graduate" style="margin-left: 0.5rem;"></i> <strong>عضو الفريق الرابع:</strong> [اسم الطالب الرابع]</p>
+                <p style="margin-bottom: 0.6rem; font-size: 1.05rem; color: #93c5fd;"><i class="fa-solid fa-user-graduate" style="margin-left: 0.5rem;"></i> <strong>عضو الفريق الخامس:</strong> [اسم الطالب الخامس]</p>
+                <p style="margin-bottom: 0.6rem; font-size: 1.05rem; color: #93c5fd;"><i class="fa-solid fa-user-graduate" style="margin-left: 0.5rem;"></i> <strong>عضو الفريق السادس:</strong> [اسم الطالب السادس]</p>
+            </div>
+        </section>
+
         <section id="support">
             <h2><i class="fa-solid fa-handshake-angle"></i> 11. طلب مرافقة ودعم إدارة الجامعة</h2>
             <p>يتطلع صاحب المشروع إلى الاستفادة من مرافقة جامعة النعامة من خلال:</p>
@@ -1305,6 +1341,7 @@
             { title: "قابلية التوسع والمستقبل", id: "expansion", tag: "التوسع" },
             { title: "مشروع قابل للتحول إلى مؤسسة ناشئة", id: "startup", tag: "مؤسسة ناشئة" },
             { title: "العلاقة مع جامعة النعامة", id: "university", tag: "الجامعة" },
+            { title: "أعضاء المشروع وفريق العمل", id: "team", tag: "الفريق" },
             { title: "طلب مرافقة ودعم إدارة الجامعة", id: "support", tag: "مرافقة" },
             { title: "الرؤية والرسالة والأهداف", id: "vision", tag: "رؤية" },
             { title: "صاحب المشروع والشعار", id: "profile-card", tag: "المطور" },
@@ -1357,48 +1394,48 @@
                     document.getElementById('quickNavBrandNormal').classList.remove('hidden');
                     document.getElementById('floatingSearchBtn').classList.remove('hidden');
                     document.getElementById('toggleToolbarBtn').classList.remove('hidden');
-                    document.getElementById('searchResultsDropdown').style.display = "none";
+                    document.getElementById('searchResultsDropdown').style.display = 'none';
                     document.getElementById('inlineSearchInput').value = '';
                 }
             }
         });
 
-        let slideIndex = 0;
-        let slideTimer;
+        // البرمجة الخاصة بمعرض الصور بنظام ظهور كل صورة لوحدها مع الانيميشن (Fade In)
+        let currentSlideIndex = 0;
+        const slides = document.querySelectorAll('.ad-slide-fade');
+        const dotsContainer = document.getElementById('dotsContainer');
+        const totalSlides = slides.length;
 
-        function showSlides() {
-            let slides = document.querySelectorAll(".ad-slide");
-            let dots = document.querySelectorAll(".dot");
-            
-            slides.forEach(slide => slide.classList.remove("active-slide"));
-            dots.forEach(dot => dot.classList.remove("active-dot"));
+        // إنشاء النقاط (Dots) بناءً على عدد الصور تلقائياً
+        for (let i = 0; i < totalSlides; i++) {
+            const dot = document.createElement('span');
+            dot.classList.add('dot');
+            if (i === 0) dot.classList.add('active-dot');
+            dot.addEventListener('click', () => showSlide(i));
+            dotsContainer.appendChild(dot);
+        }
+        const dots = document.querySelectorAll('.dot');
 
-            slideIndex++;
-            if (slideIndex > slides.length) { slideIndex = 1; }
-
-            slides[slideIndex - 1].classList.add("active-slide");
-            dots[slideIndex - 1].classList.add("active-dot");
-
-            slideTimer = setTimeout(showSlides, 4000);
+        function showSlide(index) {
+            slides.forEach((slide, i) => {
+                slide.classList.toggle('active-slide', i === index);
+                dots[i].classList.toggle('active-dot', i === index);
+            });
+            currentSlideIndex = index;
         }
 
-        function currentSlide(n) {
-            clearTimeout(slideTimer);
-            slideIndex = n;
-            let slides = document.querySelectorAll(".ad-slide");
-            let dots = document.querySelectorAll(".dot");
-
-            slides.forEach(slide => slide.classList.remove("active-slide"));
-            dots.forEach(dot => dot.classList.remove("active-dot"));
-
-            slides[slideIndex].classList.add("active-slide");
-            dots[slideIndex].classList.add("active-dot");
-            
-            slideTimer = setTimeout(showSlides, 4000);
+        function nextFadeSlide() {
+            currentSlideIndex = (currentSlideIndex + 1) % totalSlides;
+            showSlide(currentSlideIndex);
         }
 
-        showSlides();
+        // تشغيل التبديل التلقائي كل 4 ثوانٍ
+        let fadeInterval = setInterval(nextFadeSlide, 4000);
+
+        // إيقاف التبديل التلقائي عند تمرير المؤشر فوق المعرض
+        const slideshowContainer = document.getElementById('slideshowContainer');
+        slideshowContainer.addEventListener('mouseenter', () => clearInterval(fadeInterval));
+        slideshowContainer.addEventListener('mouseleave', () => fadeInterval = setInterval(nextFadeSlide, 4000));
     </script>
 </body>
 </html>
-
